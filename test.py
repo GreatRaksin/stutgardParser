@@ -31,18 +31,6 @@ def tables(url, pages, name):
 
     result.to_excel(f'{name}.xlsx')
 
-def divs():
-    page = 2
-    url = f'https://mlw.by/catalog/akkumulyatornye-instrumenty/?PAGEN_1={page}'
-
-    r = requests.get(url)
-    soup = BeautifulSoup(r.text, features='html.parser')
-    ajax = soup.find('div', {'class': 'display_list'})
-
-    #tables = ajax.find_all('div', {'class': 'price'})
-    #price = tables.find_all('span', {'class': 'price_value'})
-    print(ajax)
-
 
 tables('https://mlw.by/catalog/akkumulyatornye-instrumenty/', 27, 'akkum')
 tables('https://mlw.by/catalog/setevye-instrumenty/', 9, 'ac')

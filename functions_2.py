@@ -3,7 +3,6 @@ from bs4 import BeautifulSoup
 import pandas as pd
 from function import *
 
-
 urls = {
     'mlw_by': [
         {
@@ -44,13 +43,12 @@ urls = {
     ],
 }
 
+result = pd.DataFrame()
+
 for key in urls:
     for element in urls[key]:
-
         page = 1
         max_page = element['pages']
-        result = pd.DataFrame()
-
         for list in range(page, max_page):
             url = f'{element["url"]}?display=list&PAGEN_1={list}'
             r = requests.get(url)
@@ -60,7 +58,6 @@ for key in urls:
             for item in tables:
                 parser = parse_table(item)
                 result = result.append(parser, ignore_index=True)
+                print('appended')
 
-        result.to_excel(f'{key}.xlsx', sheet_name=f'{element["sheet_name"]}')
-
-
+result.to_excel(f'milw.xlsx')
